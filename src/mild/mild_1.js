@@ -52,8 +52,8 @@ export function maxAndMin(numbers) {
         }
     }
     let rv = new Object();
-    rv.max = max;
-    rv.min = min;
+    rv.max = `${max}`;
+    rv.min = `${min}`;
     return rv;
 
 }
