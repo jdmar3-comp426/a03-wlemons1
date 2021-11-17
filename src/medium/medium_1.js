@@ -68,9 +68,9 @@ export function getStatistics(array) {
     rv["median"] = getMedian(array);
     rv["min"] = Math.min(...array);
     rv["max"] = Math.max(...array);
-    let vari = variance(array, mean);
+    let vari = variance(array, (getSum(array) / array.length));
     rv["variance"] = vari;
-    rv["standard_deviation"] = Math.sqrt(vari);
+    rv["standard_deviation"] = Math.sqrt(variance(array, (getSum(array) / array.length)));
     return rv;
 }
 
