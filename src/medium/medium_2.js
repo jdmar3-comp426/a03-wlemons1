@@ -32,7 +32,7 @@ export const allCarStats = {
         }
         cityAvg = cityAvg / i;
         highwayAvg = highwayAvg / i;
-        avgMpg = {city: cityAvg, highway: highwayAvg};
+        this.avgMpg = {city: cityAvg, highway: highwayAvg};
 
     },
 
@@ -41,7 +41,7 @@ export const allCarStats = {
         for(i = 0; i < mpg_data.length; i++) {
             arr.push(mpg_data[i]["year"]);
         }
-        allYearStats =  getStatistics(arr);
+        this.allYearStats =  getStatistics(arr);
     },
 
     ratioHybrids: function() {
@@ -51,7 +51,7 @@ export const allCarStats = {
                 hybridCount++;
             }
         }
-        ratioHybrids =  hybridCount / mpg_data.length;
+        this.ratioHybrids =  hybridCount / mpg_data.length;
     },
 
 };
