@@ -70,10 +70,9 @@ export function getStatistics(array) {
     rv["max"] = Math.max(...array);
     let variance = 0;
     for(let i = 0; i < array.length; i++) {
-        let current = (mean - array[i]) * (mean - array[i]);
-        variance += current;
+        variance += ((array[i] - mean) * (array[i] - mean));
     }
-    variance = variance / (array.length);
+    variance /= array.length;
     rv["variance"] = variance;
     rv["standard_deviation"] = Math.sqrt(variance);
     return rv;
