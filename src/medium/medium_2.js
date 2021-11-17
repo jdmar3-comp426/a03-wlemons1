@@ -25,7 +25,6 @@ export const allCarStats = {
     allYearStats: allYearStats(),
 
     ratioHybrids: ratioHybrids()
-
 };
 
 export function avgMpg() {
@@ -44,8 +43,8 @@ export function avgMpg() {
 }
 
 export function allYearStats() {
-    let arr = [];
-    for(var i = 0; i < mpg_data.length; i++) {
+    let arr = [mpg_data[0]["year"]];
+    for(var i = 1; i < mpg_data.length; i++) {
         arr.push(mpg_data[i]["year"]);
     }
     return getStatistics(arr);

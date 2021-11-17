@@ -63,14 +63,14 @@ export function getStatistics(array) {
     let rv = new Object();
     rv["length"] = array.length;
     rv["sum"] = getSum(array);
-    let mean = getSum(array) / array.length;
-    rv["mean"] = getSum(array) / array.length;
+    var mean = getSum(array) / array.length;
+    rv["mean"] = mean;
     rv["median"] = getMedian(array);
     rv["min"] = Math.min(...array);
     rv["max"] = Math.max(...array);
-    let vari = variance(array, (getSum(array) / array.length));
+    var vari = variance(array, mean);
     rv["variance"] = vari;
-    rv["standard_deviation"] = Math.sqrt(variance(array, (getSum(array) / array.length)));
+    rv["standard_deviation"] = Math.sqrt(vari);
     return rv;
 }
 
