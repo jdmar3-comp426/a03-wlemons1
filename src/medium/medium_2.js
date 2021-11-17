@@ -45,7 +45,7 @@ export function avgMpg() {
 
 export function allYearStats() {
     let arr = [];
-    for(i = 0; i < mpg_data.length; i++) {
+    for(var i = 0; i < mpg_data.length; i++) {
         arr.push(mpg_data[i]["year"]);
     }
     return getStatistics(arr);
@@ -53,7 +53,7 @@ export function allYearStats() {
 
 export function ratioHybrids() {
     var hybridCount = 0;
-    for(i = 0; i < mpg_data.length; i++) {
+    for(var i = 0; i < mpg_data.length; i++) {
         if(mpg_data[i]["hybrid"]) {
             hybridCount++;
         }
