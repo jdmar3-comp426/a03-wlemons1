@@ -68,13 +68,8 @@ export function getStatistics(array) {
     rv["median"] = getMedian(array);
     rv["min"] = Math.min(...array);
     rv["max"] = Math.max(...array);
-    let variance = 0;
-    for(let i = 0; i < array.length; i++) {
-        variance += ((array[i] - mean) * (array[i] - mean));
-    }
-    variance /= array.length;
-    rv["variance"] = variance;
-    rv["standard_deviation"] = Math.sqrt(variance);
+    rv["variance"] = variance(array);
+    rv["standard_deviation"] = Math.sqrt(variance(array));
     return rv;
 }
 
