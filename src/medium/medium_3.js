@@ -18,7 +18,15 @@ queries.
  *
  */
 export function searchHighPower(car_data, minHorsepower, minTorque) {
-
+    let rv = [];
+    for(let i = 0; i < car_data.length; i++) {
+        if(car_data[i]["horsepower"] >= minHorsepower && car_data[i]["torque"] >= minTorque) {
+            rv.push(car_data[i]);
+        }
+    }
+    rv.sort(function(a, b) {
+        return b["horsepower"] - a["horsepower"];
+    });
 }
 
 
@@ -33,7 +41,15 @@ export function searchHighPower(car_data, minHorsepower, minTorque) {
  *
  */
 export function searchMpg(car_data, minCity, minHighway) {
-
+    let rv = [];
+    for(let i = 0; i < car_data.length; i++) {
+        if(car_data[i]["city_mpg"] >= minCity && car_data[i]["highway_mpg"] >= minHighway) {
+            rv.push(car_data[i]);
+        }
+    }
+    rv.sort(function(a, b) {
+        return b["highway_mpg"] - a["highway_mpg"];
+    });
 }
 
 
@@ -46,7 +62,17 @@ export function searchMpg(car_data, minCity, minHighway) {
  * @returns {[]} array of cars
  */
 export function searchName(car_data, searchTerm) {
-
+    let rv = [];
+    for(let i = 0; i < car_data.length; i++) {
+        let workingId = car_data[i]["id"];
+        if(workingId.toUpperCase().indexOf(searchTerm.toUpperCase()) != -1) {
+            rv.push(car_data[i]);
+        }
+    }
+    rv.sort(function(a, b) {
+        return a["id"].toUpperCase().indexOf(searchTerm.toUpperCase()) - b["id"].toUpperCase().indexOf(searchTerm.toUpperCase());
+    });
+    return rv;
 }
 
 
@@ -59,5 +85,16 @@ export function searchName(car_data, searchTerm) {
  * @returns {[]} an array of car objects
  */
 export function searchByYear(car_data, years) {
-
+    let rv = [];
+    for(let i = 0; i < car_data.length; i++) {
+        for(let j = 0; j < years.length; j++) {
+            if(years[j] == parseInt(car_data[i]["year"])) {
+                rv.push(car_data[i]);
+            }
+        }
+    }
+    rv.sort(function(a, b) {
+        return parseInt(b["year"]) - parseInt(a["year"]);
+    });
+    return rv;
 }
