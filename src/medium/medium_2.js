@@ -119,6 +119,69 @@ export function ratioHybrids() {
  * }
  */
 export const moreStats = {
-    makerHybrids: undefined,
-    avgMpgByYearAndHybrid: undefined
+    makerHybrids: makerHybrids(),
+    avgMpgByYearAndHybrid: getAvgMpgByYearAndHybrid()
 };
+
+export function makerHybrids() {
+    let rv = [];
+    for(let i = 0; i < mpg_data.length; i++) {
+        if(mpg_data[i]["hybrid"]) {
+            let added = false;
+            let j = 0;
+            while(j < rv.length && !added) {
+                if(mpg_data[i]["make"] == rv[j]["make"]) {
+                    rv[j]["hybrids"].push(mpg_data[i]["id"])
+                    added = true;
+                }
+                j++;
+            }
+            if(!added) {
+                let obj = new Object();
+                obj["make"] = mpg_data[i]["make"];
+                obj["hybrids"] = [mpg_data[i]["id"]];
+                rv.push(obj);
+            }
+        }
+    }
+    rv.sort(function(a, b) {
+        return b["hybrids"].length - a["hybrids"].length;
+    });
+    return rv;
+}
+
+export function getAvgMpgByYearAndHybrid() {
+    let rv = new Object();
+    let checked = [];
+    for(let i = 0; i < mpg_data.length; i++) {
+        let added = false;
+        let workingYear = mpg_data[i]["year"];
+        for(let j = 0; j < checked.length; j++) {
+            added = (workingYear == checked[j]) || added;
+        }
+        if(!added) {
+            checked.push(workingYear);
+            let hybridCount = 0;
+            let nonhybridCount = 0;
+            let hybridCity = 0;
+            let hybridHighway = 0;
+            let nonhybridCity = 0;
+            let nonhybridHighway = 0;
+            for(let k = i; k < mpg_data.length; k++) {
+                if(mpg_data[k]["year"] == workingYear) {
+                    if(mpg_data[k]["hybrid"]) {
+                        hybridCount++;
+                        hybridHighway += mpg_data[k]["highway_mpg"];
+                        hybridCity += mpg_data[k]["city_mpg"];
+                    } else {
+                        nonhybridCount++;
+                        nonhybridHighway += mpg_data[k]["highway_mpg"];
+                        nonhybridCity += mpg_data[k]["city_mpg"];
+                    }
+                }
+            }
+            rv[workingYear] = {hybrid: {city: hybridCity / hybridCount, highway: hybridHighway / hybridCount}, notHybrid: {city: nonhybridCity / nonhybridCount, highway: nonhybridHighway / nonhybridCount}};
+        }
+    }
+    return rv;
+}
