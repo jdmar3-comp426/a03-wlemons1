@@ -194,6 +194,6 @@ export const anEvenIsOdd = (arr) => {
  *   pass the test. You must use the filter function.
  */
 export const hasExactly = (arr, test, n) => {
-    let filter = filter(arr, test);
-    return filter["pass"].length === n;
+    let obj = filter(arr, test);
+    return obj["pass"].length === n;
 };
